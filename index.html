@@ -3,310 +3,370 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ItsMeRobi — Minecraft Server Owner & Developer</title>
-<meta name="description" content="ItsMeRobi — Minecraft server owner, network manager, and beginner developer. Owner of ReefMC, GoldSMP, and DuckMC.">
- 
-<!-- Fonts -->
+<title>Robi — Minecraft Network Owner &amp; Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
- 
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000000;
+    --card:rgba(255,255,255,0.015);
+    --card-hover:rgba(255,255,255,0.035);
+    --border:rgba(255,255,255,0.12);
+    --border-strong:rgba(255,255,255,0.22);
+    --teal:#3fe0c8;
+    --gold:#e8b768;
+    --text:#e9ebee;
+    --text-dim:#82898f;
+    --text-faint:#4c5257;
+    --r-lg:14px;
+    --r-md:10px;
+    --r-sm:6px;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-mono);
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  ::selection{background:rgba(63,224,200,0.2);color:var(--teal);}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+
+  .eyebrow{
+    font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-faint);
+  }
+
+  h1,h2,h3{font-family:var(--font-mono);font-weight:700;letter-spacing:-0.01em;}
+
+  .section{padding:100px 0;position:relative;}
+  @media (max-width:720px){ .section{padding:70px 0;} }
+
+  .section-head{margin-bottom:40px;max-width:600px;}
+  .section-head .eyebrow{display:block;margin-bottom:10px;}
+  .section-head h2{font-size:clamp(22px,3vw,28px);margin-bottom:10px;}
+  .section-head p{color:var(--text-dim);font-size:14px;}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    *{animation-duration:0.001ms !important;}
+  }
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    padding:20px 0;border-bottom:1px solid transparent;
+    transition:background .3s ease, border-color .3s ease, padding .3s ease;
+  }
+  nav.scrolled{
+    background:rgba(0,0,0,0.85);
+    border-bottom:1px solid var(--border);
+    padding:14px 0;
+  }
+  .nav-inner{max-width:1080px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px;letter-spacing:0.02em;}
+  .logo .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);}
+  .nav-links{display:flex;gap:28px;list-style:none;}
+  .nav-links a{font-size:13px;color:var(--text-dim);transition:color .2s ease;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{font-size:13px;border:1px solid var(--border-strong);padding:7px 14px;border-radius:var(--r-sm);transition:border-color .2s ease, background .2s ease;}
+  .nav-cta:hover{border-color:var(--teal);background:rgba(63,224,200,0.06);}
+  @media (max-width:820px){.nav-links{display:none;} .nav-cta{display:none;}}
+
+  /* HERO */
+  .hero{min-height:70vh;display:flex;flex-direction:column;justify-content:center;padding-top:140px;padding-bottom:40px;position:relative;}
+  .hero::before{
+    content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);
+    width:600px;height:300px;border-radius:50%;
+    background:radial-gradient(ellipse, rgba(63,224,200,0.08), transparent 70%);
+    pointer-events:none;z-index:0;
+  }
+  .hero-inner{position:relative;z-index:1;max-width:640px;}
+  .hero h1{font-size:clamp(34px,6vw,52px);margin-bottom:8px;}
+  .hero h1 .accent{color:var(--teal);}
+  .hero .role{font-size:clamp(14px,1.8vw,17px);color:var(--text-dim);margin-bottom:18px;}
+  .hero p.lede{font-size:14px;color:var(--text-dim);max-width:520px;}
+
+  /* CARD BASE */
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--r-lg);
+    padding:26px;
+  }
+
+  /* INFO GRID */
+  .info-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:20px;align-items:start;}
+  @media (max-width:900px){.info-grid{grid-template-columns:1fr;}}
+  .info-col{display:flex;flex-direction:column;gap:20px;}
+  .card-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:20px;}
+
+  /* Networks list */
+  .net-row{margin-bottom:22px;}
+  .net-row:last-child{margin-bottom:0;}
+  .net-row-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
+  .net-name{font-size:14px;font-weight:700;}
+  .net-name .num{color:var(--teal);margin-right:6px;}
+  .net-status{font-size:11.5px;color:var(--text-faint);white-space:nowrap;}
+  .net-status.soon{color:var(--gold);}
+  .net-desc{font-size:12.5px;color:var(--text-dim);line-height:1.6;}
+  .net-domain{font-size:11.5px;color:var(--text-faint);margin-top:4px;}
+  .net-domain a{color:var(--text-faint);border-bottom:1px dashed var(--border-strong);transition:color .2s ease, border-color .2s ease;}
+  .net-domain a:hover{color:var(--teal);border-color:var(--teal);}
+
+  /* utilities / skills */
+  .util-group{margin-bottom:22px;}
+  .util-group:last-child{margin-bottom:0;}
+  .util-group-label{font-size:12px;color:var(--text-dim);margin-bottom:10px;}
+  .util-group-label::before{content:'- ';color:var(--text-faint);}
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{
+    font-size:12px;color:var(--text-dim);
+    border:1px solid var(--border);border-radius:var(--r-sm);
+    padding:6px 11px;transition:border-color .2s ease, color .2s ease;
+  }
+  .tag:hover{border-color:var(--teal);color:var(--text);}
+
+  /* about / what-i-do */
+  .about-text{font-size:12.5px;color:var(--text-dim);}
+  .about-text strong{color:var(--text);font-weight:600;}
+  .about-text p{margin-bottom:12px;}
+  .about-text p:last-child{margin-bottom:0;}
+
+  .do-list{list-style:none;}
+  .do-list li{font-size:12.5px;color:var(--text-dim);padding:5px 0;}
+  .do-list li::before{content:'· ';color:var(--teal);}
+
+  /* EXPERIENCE TIMELINE */
+  .timeline{position:relative;padding-left:28px;}
+  .timeline::before{content:'';position:absolute;left:4px;top:6px;bottom:6px;width:1px;background:var(--border);}
+  .t-item{position:relative;padding-bottom:38px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-node{position:absolute;left:-28px;top:4px;width:9px;height:9px;border-radius:50%;background:#000;border:1.5px solid var(--text-faint);}
+  .t-item.now .t-node{border-color:var(--gold);}
+  .t-tag{font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
+  .t-item.now .t-tag{color:var(--gold);}
+  .t-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
+  .t-title{font-size:16px;font-weight:700;}
+  .t-role{font-size:12px;color:var(--teal);}
+  .t-desc{color:var(--text-dim);font-size:13px;max-width:560px;}
+
+  /* CONTACT */
+  .contact-card{padding:44px;text-align:center;}
+  .contact-card h2{font-size:clamp(20px,3vw,26px);margin-bottom:10px;}
+  .contact-card p{color:var(--text-dim);font-size:13px;max-width:440px;margin:0 auto 28px;}
+  .contact-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  .contact-pill{
+    display:flex;align-items:center;gap:8px;
+    padding:11px 18px;border-radius:var(--r-sm);
+    border:1px solid var(--border-strong);font-size:13px;
+    transition:border-color .2s ease, background .2s ease, color .2s ease;
+    background:transparent;color:inherit;font-family:var(--font-mono);cursor:pointer;
+  }
+  .contact-pill:hover{border-color:var(--teal);background:rgba(63,224,200,0.06);color:var(--teal);}
+  .contact-pill svg{width:15px;height:15px;}
+
+  footer{padding:30px 0;text-align:center;font-size:11.5px;color:var(--text-faint);border-top:1px solid var(--border);}
+  footer span.accent{color:var(--teal);}
+</style>
 </head>
 <body>
- 
-<div id="progress-bar"></div>
- 
-<!-- ============ NAV ============ -->
-<nav class="nav" id="nav">
-  <div class="wrap">
-    <a href="#top" class="brand"><span class="dot"></span>ItsMeRobi<span class="tag"> // portfolio</span></a>
- 
+
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="logo"><span class="dot"></span>ITSMEROBI</div>
     <ul class="nav-links">
-      <li><a href="#about" data-nav>About</a></li>
-      <li><a href="#networks" data-nav>Networks</a></li>
-      <li><a href="#skills" data-nav>Skills</a></li>
-      <li><a href="#experience" data-nav>Experience</a></li>
-      <li><a href="#contact" data-nav>Contact</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#networks">Networks</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
- 
     <a href="#contact" class="nav-cta">Get in touch</a>
- 
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </nav>
- 
-<div class="scrim" id="scrim"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <ul>
-    <li><a href="#about"><span>01</span>About</a></li>
-    <li><a href="#networks"><span>02</span>Networks</a></li>
-    <li><a href="#skills"><span>03</span>Skills</a></li>
-    <li><a href="#experience"><span>04</span>Experience</a></li>
-    <li><a href="#contact"><span>05</span>Contact</a></li>
-  </ul>
-</div>
- 
-<!-- ============ HERO ============ -->
-<header class="hero" id="top">
-  <div class="hero-glow"></div>
-  <div id="particles"></div>
- 
-  <div class="wrap hero-content">
-    <span class="eyebrow">Online now</span>
- 
-    <h1>I'm <span class="accent">ItsMeRobi</span>!</h1>
-    <p class="role">Minecraft Server Owner <span class="sep">/</span> Manager <span class="sep">/</span> Beginner Developer</p>
-    <p class="desc">Passionate about building high-quality Minecraft networks and creating engaging experiences for players — from first plugin config to full community launch.</p>
- 
-    <div class="hero-actions">
-      <a href="#networks" class="btn btn-primary">View my networks</a>
-      <a href="#contact" class="btn btn-ghost">Get in touch</a>
-    </div>
- 
-    <div class="hero-status">
-      <span class="stat"><span class="led soon"></span>ReefMC — Coming Soon</span>
-      <span class="stat"><span class="led on"></span>GoldSMP — Online</span>
-      <span class="stat"><span class="led on"></span>DuckMC — Online</span>
-    </div>
+
+<header class="hero wrap">
+  <div class="hero-inner">
+    <h1>I'm <span class="accent">Robi!</span></h1>
+    <div class="role">Minecraft Server Owner, Manager &amp; Beginner Developer.</div>
+    <p class="lede">Passionate about building high-quality Minecraft networks and creating engaging experiences for players.</p>
   </div>
- 
-  <div class="scroll-cue"><span>Scroll</span><span class="line"></span></div>
 </header>
- 
-<!-- ============ ABOUT ============ -->
-<section class="section" id="about">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">01 — About</span>
-      <h2>Built for the long game.</h2>
-    </div>
- 
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <p>I've spent years <strong>owning and managing Minecraft networks</strong> — from the first server config to a fully-fledged community with its own economy, staff team, and identity. Along the way I've learned what actually keeps a network alive: stable performance, fair monetization, and a community that feels heard.</p>
-        <p>I've run <strong>three networks</strong> across different eras of my journey, each one teaching me more about server architecture, plugin development, and what players genuinely want out of a server. I'm now channeling everything I've learned into <strong>ReefMC</strong> — my most ambitious project yet.</p>
-        <p>Alongside operations, I'm developing my technical side — writing <strong>YAML</strong> configs daily, learning <strong>Java</strong> to build my own plugins, and using <strong>HTML</strong> to ship the tools and pages my networks need.</p>
+
+<section id="about" class="section wrap">
+  <div class="info-grid">
+    <div class="card reveal" id="networks">
+      <div class="card-title">Minecraft Networks</div>
+
+      <div class="net-row">
+        <div class="net-row-top">
+          <div class="net-name"><span class="num">1.</span>ReefMC</div>
+          <div class="net-status soon">Coming soon</div>
+        </div>
+        <p class="net-desc">My most ambitious project yet — everything I've learned across three networks, brought together in one place.</p>
+        <div class="net-domain"><a href="https://reefmc.fun" target="_blank" rel="noopener">play.reefmc.fun</a></div>
       </div>
- 
-      <div class="about-card glass reveal">
-        <div class="card-title">Quick facts</div>
-        <div class="about-row"><span class="k">Role</span><span class="v">Owner &amp; Network Manager</span></div>
-        <div class="about-row"><span class="k">Networks run</span><span class="v">3</span></div>
-        <div class="about-row"><span class="k">Currently building</span><span class="v">ReefMC</span></div>
-        <div class="about-row"><span class="k">Core stack</span><span class="v">YAML · Java · HTML</span></div>
-        <div class="about-row"><span class="k">Monetization</span><span class="v">Tebex</span></div>
-        <div class="about-row"><span class="k">Status</span><span class="v">Open to opportunities</span></div>
+
+      <div class="net-row">
+        <div class="net-row-top">
+          <div class="net-name"><span class="num">2.</span>GoldSMP</div>
+          <div class="net-status">Previous network</div>
+        </div>
+        <p class="net-desc">Focused on steady day-to-day management, performance optimization, and Tebex-driven monetization.</p>
+        <div class="net-domain">play.goldsmp.lol</div>
+      </div>
+
+      <div class="net-row">
+        <div class="net-row-top">
+          <div class="net-name"><span class="num">3.</span>DuckMC</div>
+          <div class="net-status">First network</div>
+        </div>
+        <p class="net-desc">Where it all started — learning server management, plugin configuration, and community building from scratch.</p>
+        <div class="net-domain">play.duckmc.org</div>
+      </div>
+    </div>
+
+    <div class="card reveal" id="skills">
+      <div class="card-title">My Skillset</div>
+
+      <div class="util-group">
+        <div class="util-group-label">Server Operations</div>
+        <div class="tag-row">
+          <span class="tag">Server Management</span>
+          <span class="tag">Plugin Configuration</span>
+          <span class="tag">Performance Optimization</span>
+          <span class="tag">Tebex</span>
+        </div>
+      </div>
+
+      <div class="util-group">
+        <div class="util-group-label">Development</div>
+        <div class="tag-row">
+          <span class="tag">YAML</span>
+          <span class="tag">Java (Beginner)</span>
+          <span class="tag">HTML (Beginner)</span>
+        </div>
+      </div>
+
+      <div class="util-group">
+        <div class="util-group-label">Community</div>
+        <div class="tag-row">
+          <span class="tag">Community Management</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-col">
+      <div class="card reveal">
+        <div class="card-title">About me</div>
+        <div class="about-text">
+          <p>Hi there! I'm <strong>Robi</strong>, a Minecraft server owner and manager. I've built and run <strong>three Minecraft networks</strong>, handling everything from configs to community.</p>
+          <p>I'm also a <strong>beginner developer</strong>, picking up YAML, Java and HTML so I can build more of what my networks need myself.</p>
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="card-title">What I do</div>
+        <ul class="do-list">
+          <li>Minecraft network ownership</li>
+          <li>Server management &amp; configuration</li>
+          <li>Plugin configuration</li>
+          <li>Community management</li>
+          <li>Monetization (Tebex)</li>
+          <li>Performance optimization</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
- 
-<!-- ============ NETWORKS ============ -->
-<section class="section" id="networks">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">02 — Networks</span>
-      <h2>Networks I've built &amp; run.</h2>
-      <p>Three projects, three lessons. Each network shaped how the next one was built.</p>
+
+<section id="experience" class="section wrap">
+  <div class="section-head reveal">
+    <span class="eyebrow">Experience</span>
+    <h2>How I got here.</h2>
+  </div>
+  <div class="timeline">
+    <div class="t-item reveal">
+      <div class="t-node"></div>
+      <div class="t-tag">First network</div>
+      <div class="t-head"><span class="t-title">DuckMC</span><span class="t-role">Owner &amp; Manager</span></div>
+      <p class="t-desc">Started my journey running Minecraft networks — learning server management, plugin configuration, and how to build a community from the ground up.</p>
     </div>
- 
-    <!-- Featured: ReefMC -->
-    <div class="net-featured reveal">
-      <div class="net-featured-top">
-        <span class="net-badge"><span class="led"></span>Coming soon</span>
-        <span class="net-tag">Flagship project</span>
-      </div>
-      <h3>ReefMC</h3>
-      <p class="net-desc">My biggest and most ambitious network to date — built with everything I've learned from running GoldSMP and DuckMC. ReefMC is currently in development, focused on a polished first-launch experience, strong performance, and a community built to last.</p>
-      <div class="net-footer">
-        <span class="net-ip">reefmc.fun-play.reefmc.fun</span>
-        <a href="https://reefmc.fun-play.reefmc.fun" target="_blank" rel="noopener" class="btn btn-ghost" style="padding:10px 20px; font-size:13.5px;">Preview site ↗</a>
-      </div>
+    <div class="t-item reveal">
+      <div class="t-node"></div>
+      <div class="t-tag">Second network</div>
+      <div class="t-head"><span class="t-title">GoldSMP</span><span class="t-role">Owner &amp; Manager</span></div>
+      <p class="t-desc">Took what I learned from DuckMC and applied it to a new network — sharpening performance optimization, monetization with Tebex, and day-to-day community management.</p>
     </div>
- 
-    <!-- GoldSMP / DuckMC -->
-    <div class="net-grid">
-      <div class="net-card glass reveal" data-accent="gold">
-        <div class="net-card-top">
-          <span class="net-status"><span class="led"></span>Online</span>
-        </div>
-        <h3>GoldSMP</h3>
-        <p>A survival-focused SMP network built around fair progression, an active economy, and a close-knit community.</p>
-        <div class="net-connect">
-          <span class="ip">play.goldsmp.lol</span>
-          <button class="copy-btn" data-copy="play.goldsmp.lol" aria-label="Copy GoldSMP server address">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          </button>
-        </div>
-        <a href="https://goldsmp.lol" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top:16px; width:100%; justify-content:center; padding:11px 20px; font-size:13.5px;">Visit GoldSMP ↗</a>
-      </div>
- 
-      <div class="net-card glass reveal" data-accent="duck">
-        <div class="net-card-top">
-          <span class="net-status"><span class="led"></span>Online</span>
-        </div>
-        <h3>DuckMC</h3>
-        <p>A community-driven network built to keep things simple, welcoming, and fun for players of every experience level.</p>
-        <div class="net-connect">
-          <span class="ip">play.duckmc.org</span>
-          <button class="copy-btn" data-copy="play.duckmc.org" aria-label="Copy DuckMC server address">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          </button>
-        </div>
-        <a href="https://duckmc.org" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top:16px; width:100%; justify-content:center; padding:11px 20px; font-size:13.5px;">Visit DuckMC ↗</a>
-      </div>
+    <div class="t-item now reveal">
+      <div class="t-node"></div>
+      <div class="t-tag">Current focus</div>
+      <div class="t-head"><span class="t-title">ReefMC</span><span class="t-role">Founder — Coming soon</span></div>
+      <p class="t-desc">My most ambitious network yet, and my first project shaped by real development skills — YAML, beginner Java, and HTML — alongside years of hands-on network experience.</p>
     </div>
   </div>
 </section>
- 
-<!-- ============ SKILLS ============ -->
-<section class="section" id="skills">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">03 — Skills</span>
-      <h2>What I bring to a network.</h2>
-    </div>
- 
-    <div class="skills-cols">
-      <div class="skill-group glass reveal">
-        <div class="group-label">Server Operations</div>
-        <div class="skill-item"><span>Server Management</span></div>
-        <div class="skill-item"><span>Plugin Configuration</span></div>
-        <div class="skill-item"><span>Performance Optimization</span></div>
-      </div>
- 
-      <div class="skill-group glass reveal">
-        <div class="group-label">Development</div>
-        <div class="skill-item"><span>YAML</span></div>
-        <div class="skill-item"><span>Java</span><span class="tag">Beginner</span></div>
-        <div class="skill-item"><span>HTML</span></div>
-      </div>
- 
-      <div class="skill-group glass reveal">
-        <div class="group-label">Business &amp; Community</div>
-        <div class="skill-item"><span>Tebex</span></div>
-        <div class="skill-item"><span>Community Management</span></div>
-      </div>
+
+<section id="contact" class="section wrap">
+  <div class="contact-card card reveal">
+    <h2>Let's talk.</h2>
+    <p>Whether it's about ReefMC, one of my other networks, or a collaboration — I'd love to hear from you.</p>
+    <div class="contact-links">
+      <button type="button" class="contact-pill" id="discord-copy" data-default="shxwered">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 5.4a17.6 17.6 0 0 0-4.4-1.4l-.2.4c1.6.4 2.7 1 3.8 1.7-1.6-.8-3.2-1.2-4.9-1.4a12 12 0 0 0-5.2 0c-1.7.2-3.3.6-4.9 1.4a13.6 13.6 0 0 1 3.9-1.7l-.2-.4c-1.5.3-3 .8-4.4 1.4C1.1 9 .5 12.5.7 16c1.6 1.2 3.1 1.9 4.6 2.4l.6-1c-.8-.3-1.6-.7-2.3-1.2l.5-.4c2.1 1 4.4 1.5 6.9 1.5s4.8-.5 6.9-1.5l.5.4c-.7.5-1.5.9-2.3 1.2l.6 1c1.5-.5 3-1.2 4.6-2.4.3-4-.6-7.5-2.7-10.6ZM9 14c-.8 0-1.5-.8-1.5-1.7 0-1 .7-1.7 1.5-1.7s1.5.8 1.5 1.7c0 1-.7 1.7-1.5 1.7Zm6 0c-.8 0-1.5-.8-1.5-1.7 0-1 .7-1.7 1.5-1.7s1.5.8 1.5 1.7c0 1-.7 1.7-1.5 1.7Z"/></svg>
+        <span>shxwered</span>
+      </button>
+      <a href="mailto:contact@robi.dev" class="contact-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6.5l9 6.5 9-6.5"/></svg>
+        Email
+      </a>
+      <a href="https://builtbybit.com/members/itsmerobi.644720/" target="_blank" rel="noopener" class="contact-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5 12 4l9 5.5v9L12 24l-9-5.5v-9Z"/><path d="M3 9.5 12 15l9-5.5"/><path d="M12 15v9"/></svg>
+        BuiltByBit
+      </a>
     </div>
   </div>
 </section>
- 
-<!-- ============ EXPERIENCE ============ -->
-<section class="section" id="experience">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">04 — Experience</span>
-      <h2>The road to ReefMC.</h2>
-      <p>Every network taught me something the last one couldn't.</p>
-    </div>
- 
-    <div class="timeline">
-      <div class="tl-item reveal">
-        <div class="tl-node"></div>
-        <span class="tl-date"><!-- EDIT ME: replace with real year(s) -->2021</span>
-        <div class="tl-card glass">
-          <h3>DuckMC <span class="role-tag">Owner</span></h3>
-          <p>My first real network — where I learned the fundamentals of server hosting, plugin setup, and managing a live community.</p>
-          <ul>
-            <li>Set up and maintained the core server infrastructure</li>
-            <li>Configured plugins and basic game mechanics</li>
-            <li>Built the first version of the community around it</li>
-          </ul>
-        </div>
-      </div>
- 
-      <div class="tl-item reveal">
-        <div class="tl-node"></div>
-        <span class="tl-date"><!-- EDIT ME: replace with real year(s) -->2023</span>
-        <div class="tl-card glass">
-          <h3>GoldSMP <span class="role-tag">Owner &amp; Manager</span></h3>
-          <p>A step up in scale and ambition — refining monetization, optimization, and community systems from lessons learned on DuckMC.</p>
-          <ul>
-            <li>Introduced structured monetization through Tebex</li>
-            <li>Optimized performance for a growing player base</li>
-            <li>Led a staff team and formalized community management</li>
-          </ul>
-        </div>
-      </div>
- 
-      <div class="tl-item current reveal">
-        <div class="tl-node"></div>
-        <span class="tl-date"><!-- EDIT ME: replace with real year(s) -->2025 — Present</span>
-        <div class="tl-card glass">
-          <h3>ReefMC <span class="role-tag">Owner &amp; Developer</span></h3>
-          <p>My most ambitious project yet — combining everything learned from two previous networks with new skills in Java and plugin development.</p>
-          <ul>
-            <li>Designing the network from the ground up for a polished launch</li>
-            <li>Building custom configuration and beginner Java tooling</li>
-            <li>Currently in development — coming soon</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
- 
-<!-- ============ CONTACT ============ -->
-<section class="section" id="contact">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">05 — Contact</span>
-      <h2>Let's talk.</h2>
-      <p>Whether it's about a network, a collab, or just Minecraft dev talk — reach out.</p>
-    </div>
- 
-    <div class="contact-grid">
-      <div class="contact-card glass reveal">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.058a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.373.291a.077.077 0 0 1-.006.128 12.3 12.3 0 0 1-1.873.892.076.076 0 0 0-.04.106c.36.698.772 1.363 1.225 1.994a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.055c.5-5.177-.838-9.673-3.549-13.662a.061.061 0 0 0-.031-.028zM8.02 15.331c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.211 0 2.176 1.096 2.157 2.42 0 1.332-.955 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.332-.946 2.418-2.157 2.418z"/></svg>
-        </div>
-        <div>
-          <div class="label">Discord</div>
-          <div class="value" id="discordValue">shxwered</div>
-        </div>
-        <button class="copy-btn" data-copy="shxwered" aria-label="Copy Discord username" style="align-self:flex-start;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        </button>
-      </div>
- 
-      <div class="contact-card glass reveal">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        </div>
-        <div>
-          <div class="label">Email</div>
-          <!-- EDIT ME: swap in your real email address -->
-          <div class="value">contact@itsmerobi.com</div>
-        </div>
-        <div class="hint">Placeholder — update anytime</div>
-      </div>
-    </div>
- 
-    <div class="contact-foot glass reveal">
-      <p>Prefer Discord? It's the fastest way to reach me directly.</p>
-      <a href="#top" class="btn btn-primary" style="padding:11px 22px; font-size:13.5px;">Back to top ↑</a>
-    </div>
-  </div>
-</section>
- 
+
 <footer>
-  <div class="wrap">
-    <span class="f-brand">ItsMeRobi // built for the long game</span>
-    <div class="f-links">
-      <a href="#about">About</a>
-      <a href="#networks">Networks</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </div>
+  © 2026 Robi — built with a lot of <span class="accent">YAML</span>.
 </footer>
- 
-<div id="toast"></div>
- 
-<script src="script.js"></script>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive:true });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  const discordBtn = document.getElementById('discord-copy');
+  if (discordBtn) {
+    const label = discordBtn.querySelector('span');
+    discordBtn.addEventListener('click', () => {
+      const username = discordBtn.dataset.default;
+      navigator.clipboard.writeText(username).then(() => {
+        label.textContent = 'Copied!';
+        setTimeout(() => { label.textContent = username; }, 1500);
+      });
+    });
+  }
+</script>
+
 </body>
 </html>
- 
